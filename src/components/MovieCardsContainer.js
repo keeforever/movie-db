@@ -6,8 +6,8 @@ import Error from "../pages/Error";
 
 const MovieCardsContainer = () => {
   const { searchParams } = useGlobalContext();
-  console.log(process.env.REACT_APP_MOVIEDB_API_KEY);
-  const url = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_MOVIEDB_API_KEY}=${searchParams}`;
+
+  const url = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_MOVIES_DB_API_KEY}=${searchParams}`;
   const { isLoading, isError, apiData } = useFetch(url, searchParams);
 
   if (isLoading) {
