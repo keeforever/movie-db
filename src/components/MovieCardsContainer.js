@@ -3,36 +3,29 @@ import MovieCard from "./MovieCard";
 import { useGlobalContext } from "../context";
 import Loader from "../pages/Loader";
 import Error from "../pages/Error";
-// dev json
+
 const MovieCardsContainer = () => {
-  const {searchParams} =useGlobalContext();
-  const url='http://www.omdbapi.com/?apikey=d377fe02&s='+searchParams
-  const {isLoading,isError,apiData} = useFetch(url,searchParams);
-  if(isLoading){
-    return (
-      <>
-      <Loader/>
-      </>
-    )
+  const { searchParams } = useGlobalContext();
+  console.log(process.env.REACT_APP_MOVIEDB_API_KEY);
+  const url = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_MOVIEDB_API_KEY}=${searchParams}`;
+  const { isLoading, isError, apiData } = useFetch(url, searchParams);
+
+  if (isLoading) {
+    return <Loader />;
   }
-  if(isError){
-    return (
-      <>
-      <Error/>
-      </>
-    )
+  if (isError) {
+    return <Error />;
   }
 
-  const {Search} = apiData
+  const { Search } = apiData;
+
   return (
     <section className="movie__cards-container">
-      {
-        Search.map((movie,index)=>{
-          return <MovieCard key={index} movie={movie}/>
-        })
-      }
+      {Search.map((movie, index) => {
+        return <MovieCard key={index} movie={movie} />;
+      })}
     </section>
-  )
-}
+  );
+};
 
-export default MovieCardsContainer
+export default MovieCardsContainer;

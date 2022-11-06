@@ -1,37 +1,35 @@
-import {createContext,useContext,useState} from 'react';
+import { createContext, useContext, useState } from "react";
 
+const AppContext = createContext();
 
-const AppContext=createContext();
-
-const AppProvider=({children})=>{
-  const [searchParams,setSearchParams]=useState('indian');
-  const [movieErrorRes,setMovieErrorRes] =useState('')
+const AppProvider = ({ children }) => {
+  const [searchParams, setSearchParams] = useState("indian");
+  const [movieErrorRes, setMovieErrorRes] = useState("");
 
   // set search value
-  const setSearchValue=(value)=>{
-    setSearchParams(value)
-  }
+  const setSearchValue = (value) => {
+    setSearchParams(value);
+  };
+
   //set movie api error response
-  const setSearchRes=(res)=>{
-    setMovieErrorRes(res)
-  }
+  const setSearchRes = (res) => {
+    setMovieErrorRes(res);
+  };
+
   return (
     <AppContext.Provider
-      value={
-        {
-          setSearchValue,
-          searchParams,
-          setSearchRes,
-          movieErrorRes
-        }
-      }
+      value={{
+        setSearchValue,
+        searchParams,
+        setSearchRes,
+        movieErrorRes,
+      }}
     >
-    {children}
+      {children}
     </AppContext.Provider>
-  )
-}
-const useGlobalContext=()=>{
-
-  return useContext(AppContext)
-}
-export {AppProvider,useGlobalContext}
+  );
+};
+const useGlobalContext = () => {
+  return useContext(AppContext);
+};
+export { AppProvider, useGlobalContext };
